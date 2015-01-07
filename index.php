@@ -1,27 +1,32 @@
-<?php 
-include 'dbfunctions.php';
-
+<?php
+    // Include Database functions
+    include 'dbfunctions.php';
+    
 ?>
 
+
+
+            
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
 <html class="no-js" lang="en" >
 
 <head>
-  <meta charset="utf-8">
-  <!-- If you delete this meta tag World War Z will become a reality -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Marike Meijer">
-  <title>Geocomment</title>
+    <meta charset="utf-8">
+    <!-- If you delete this meta tag World War Z will become a reality -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Marike Meijer">
+    <title>Geocomment</title>
 
-  <!-- If you are using the CSS version, only link these 2 files, you may add app.css to use for your overrides if you like -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/foundation.css">
-  <!-- Karte-->
-  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
-<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
+    <!-- If you are using the CSS version, only link these 2 files, you may add app.css to use for your overrides if you like -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/foundation.css">
+    <!-- Karte-->
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
+
 
 
 
@@ -35,78 +40,143 @@ include 'dbfunctions.php';
   <link rel="stylesheet" href="css/app.css">
 
   <script src="js/vendor/modernizr.js"></script>
-<!--
-  <script type="text/javascript">
-    // the Geolocation API provides us with the visitor's location
-    navigator.geolocation.getCurrentPosition(GetLocation);
-    
-    function GetLocation(location) {
-      // after we have acquired the user's location, it is written into the HTML <input...> text boxes below
-      document.form.lat.value = location.coords.latitude;
-      document.form.lon.value = location.coords.longitude;
-    }
-    </script>
-    -->
-
 
     
 </head>
-<body >
+
+<body>
 
 
 
 
 
-
+<!--Topbar for Navigation by Marike -->
 <nav class="top-bar" data-topbar role="navigation">
-  <ul class="title-area">
+  <ul class="title-area" >
     <li class="name">
-      <h1><a href="index3.html">Geocomment</h1>
+      <h1><a href="index.php">Geocomment</a></h1>
     </li>
+   
+   
      <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-    <li class="toggle-topbar menu-icon" id="menu-icon" >
-       <img src="menu.png" >
+    <li class="toggle-topbar" id="menu-icon" ><a href='#'><span>Menu</span>
+       <img src="menu.png" > </a>
        <style type="text/css">
-          #menu-icon{
+          #menu-icon
+          {
             position:right;
           }
        </style>
     
-         </a>
+         
     </li>
-  </ul>
+   </ul>
 
   <section class="top-bar-section">
 
-    <!-- Right Nav Section -->
-    <ul class="right">
-      <li class="has-dropdown hide-for-large hide-for-medium">
+    <!-- Middle Nav Section -->
+    <ul class="middle">
+                
+         
+           
+          
+   
 
-        <a href="#">Menü</a>
+        <!-- Start Login Formular--------------------------- -->
+       <?php 
 
-        <ul class="dropdown">
-           <li class="active"><a href="#">Search</a></li>
-           <li><a href="#">Log In</a></li>
-            <li><a href="#">Help</a></li>
-        </ul>
-      </li>
-    </ul>
+        // Only show form to unloggedin visitors
+        if(IsLoggedIn() == true) {
+                echo file_get_contents("form_logout.php");
+        } else {
+                echo file_get_contents("form_login.php");
+        }
+       ?>
+
+       <!--------------------- End -->
+         
+      
+     
+
+    <!--Registration//Sign in by Marike, Formular by Tobias-->
+
+    <!-- <li><a href="#" data-reveal-id="sign-in">Sign In</a></li>-->
+    
+     <div id="sign-in" class="reveal-modal" data-reveal>
+         <h4> Sign In</h4>
+
+         <script src="signin.js"></script>
+
+        <!-- Start Register Formular--------------------------- -->
+          <?php 
+
+          // Only show form to unloggedin visitors
+          if(IsLoggedIn() == true) {
+                  echo "Already registered.";
+          } else {
+                  echo file_get_contents("form_register.php");
+          }
+          ?>
+
+          <!--------------------- End -->
+
+    </div>
+  </ul>
 
     <!-- Left Nav Section -->
     <ul class="left" >
-   
-      
+     <strong class="show-for-small-only">
+       <li class="has-dropdown">
+        <a href="#">Menu</a>
+        <ul class="dropdown">
+          <li><a href="#">Show all Comments</a></li>
+          <li><a href="#">Filter</a></li>
+          <li><a href="#">New Comment</a></li>
+          <li><a href="#">Advanced Search</a></li>
+           <li><a href="#">FAQ</a></li>
+           <li><a href="#">Impressum</a></li>
 
-      <li class="has-form">
+        </ul>
+      </li>
+      </strong>
+   
+    
+   
+     
+          
+      <!--Search Bar-->
+      <li class="has-form" id="firstStop">
        <div class="row collapse">
-         <div class="large-12 small-10 columns">
+         <div class="large-10 small-10 columns">
             <input type="text" placeholder="Find Geodata">
          </div>
+        <div class="large-2 small-2 columns">
+         <a href="#" class="tiny button">Search</a>
         </div>
-    </li>
-
-
+       </div>
+     </li>
     </ul>
+
+    <ul class="right">
+     <!-- right Nav Section -->
+       <!-- information stuff only for large -->
+       <strong class="show-for-medium-up">
+       <li class="has-dropdown ">
+
+       <img src="info-icon-32.png" width="36px" height="36px" bottom="1px">
+      
+       
+      <ul class="dropdown">
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Impressum</a></li>
+       
+        
+
+        
+     </li>
+     </strong>
+    </ul>
+    
   </section>
 </nav>
 
@@ -139,87 +209,50 @@ max-width: 100%;
      
   <div id="map">
     <style>
-    
+
      #map{
+    
+
     width: 100%; 
-    height: 90%;
+    height: 95%;
     float: left;
     position: absolute;
     }
-
-    @media screen and (min-width: 640px) {
+    
+    @media screen and (min-width: 1025px) {
       #map{
       width:58%;
-      height:93%;
+      height:95%;
 
           }
     }
      
     </style>
    
-
-  
-    <script type="text/javascript" >
-
-          L.mapbox.accessToken = '<your access token here>';
-          // Replace 'examples.map-i87786ca' with your map id.
-          var mapboxTiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-i87786ca/{z}/{x}/{y}.png', {
-              attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>'
-          });
-
-          var map = L.map('map')
-              .addLayer(mapboxTiles)
-              .setView([51.96217, 7.62561], 12);
-               
-              //map.locate({setView: true , maxZoom: 14});
-               -->
-               
-
-          function onMapClick(e)
-          {
-        popup
-        .setLatLng(e.latlng)
-        .setContent('Hallo, möchtest du an dieser Stelle einen neuen Kommentar hinzufügen?<br /> <a href="">Ja</a>')
-        .openOn(map);
-          }
-
-        map.on('click', onMapClick);
-
-         var mapLink = '<a href="http://www.esri.com/">Esri</a>';
-         var wholink = 'i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
-         var aerial = L.tileLayer(
-            'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-              maxZoom: 18,
-              attribution: '&copy; ' + mapLink 
-            });
-
-         var mapQuestOpen_Aerial = L.tileLayer('http://oatile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg', {
-             attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency', subdomains: '1234'
-             });
-
-         var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-             attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
-
-         });
-
-
-
-
-         L.control.layers({
-             'Aerial': aerial,
-             'mapboxTiles': mapboxTiles,
-             'MapQuest Open Aerial': mapQuestOpen_Aerial,
-             'OpenStreetMap':osm,
-             }, {}, {
-            position: 'topleft'
-          }).addTo(map);
-
-
-
-
-
-
+      <!--javascript for mapfunctions-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js "></script>
+    <script>
+        // Generate Markers
+        $(document).ready(function(){
+            <?php
+                $res=GetAllFirstComments();
+                for($i=0; $i < count($res); $i++) {
+                    $answers_num=count(GetCommentThread($res[$i]["id"]));
+                    echo "CreateMarker(".$res[$i]["positionx"]." , ".$res[$i]["positiony"]." , '"
+                            .$res[$i]["title"]."<br>".$res[$i]["content"]."<br>Comments: $answers_num' , '".$res[$i]["id"]."'); "; // Marker txt
+                }
+             ?>
+        });
+    </script>  
+    
+    <script src="map.js">
     </script>
+
+
+   
+  
+
+    
     }
 
   <!--
@@ -261,92 +294,50 @@ max-width: 100%;
 
 
 
-
+<!--map and comments part by marike-->
 
   <div class="small-6 medium-6 large-6 columns">
   <!--map -->
-
-
-  
-  
+ 
   </div>
 
-  <div class="small-5 hide-for-small medium-5 large-5 columns" id="backgroundright" >
-  
-    
-    <dl class="tabs hide-for-small" data-tab >
-
+  <div class="small-5 hide-for-small medium-5 hide-for-medium  large-5 columns" id="backgroundright" >
+      <dl class="tabs hide-for-small" data-tab >
+          <dd> <a  href="#panel1" id="secondStop">Home</a></dd>
+          <dd class="active"> <a href="#panel2" id="thirdStop">Comments  </a></dd>
+          <dd> <a  href="#panel3" id="stop4">Filter</a></dd>
+      </dl>
       
-        <dd class="active"><a href="#panel1">Home</a></dd>
-        <dd>         <a href="#panel2">Comments</a></dd>
-        <dd>         <a href="#panel3">Rating</a></dd>
-        <dd>         <a href="#panel4">Log In</a></dd>
-		<dd>		 <a href="#panel5">Sign In</a><dd>
-    </dl>
-      <div class="tabs-content">
-        <div class="content active" id="panel1">
-          <p> Welcome to Geocomment    </p>
-          <!-- Size Classes: [tiny small large] -->
-          <!-- Radius Classes: [radius round] -->
-          <!-- Color Classes: [secondary success alert] -->
-          <!-- Disabled Class: disabled -->
+    <div class="tabs-content">
+      <div id="panel1" class="content" >
+        <p> Welcome to Geocomment </p>
+         
 
 
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
-<script type="text/javascript">
-function chkFormular () {
-  if (document.createcomment.title.value == "") {
-    alert("Please enter a title!");
-    document.createcomment.title.focus();
-    return false;
-  }
-  if(document.createcomment.url.value == "") {
-   alert("Please enter a Url!");
-   document.createcomment.url.focus();
-   return false;
-  }
-  if(document.createcomment.comment.value == "") {
-   alert("Please enter a comment!");
-   document.createcomment.url.focus();
-   return false;
-  }
-  if(document.createcomment.datum.value == "") {
-   alert("Please enter a datum!");
-   document.createcomment.url.focus();
-   return false;
-  }
-}
-</script>
-</head>
-<body>
-<form name="createcomment" action="http://de.selfhtml.org/cgi-bin/formview.pl" method="post" onsubmit="return chkFormular()">
-<fieldset>   
- <pre>
-       <legend>Create Comment:</legend>
+<div class="large-12 columns" >
 
-	<br>
-		
-		<label for="title">Title:</label>
-        <input type="text" Placeholder="Title" name="title" id="title" class="text" />
-		
-		<label for="title">Title:</label>
-        <input type="text" Placeholder="Title" name="title" id="title" class="text" />
-        <label for="url">Url:</label>
-        <input type="text" Placeholder="Url" name="url" id="url" class="text" />
-        <label for="comment">Comment:</label>
-        <textarea name="comment" wrap="PHYSICAL" Placeholder="Comment" cols="30" rows="5"></textarea>
-        <label for="mapage">Datum:</label>
-        <input type="date" Placeholder="Datum" name="datum" id="datum" class="date" />
-        <input type="submit" value="Submit" class="button round" id="butcom1"/>
-		
- </pre>
-</fieldset>
-</form>
-</body>
+  <!--
+  <a href="comment.html" class="button round" id="butcom1">New Comment</a>
+  -->
 
-</html>
+<button class="button" data-dropdown="newcom"  id="newcom2" aria-controls="newcom">New Comment</button>
+
+
+
+<script src="createcomment.js"></script>
+
+ <!-- Start Create Comment Formular--------------------------- -->
+<?php 
+
+    include "form_insertcomment.php";
+
+?>
+<!--------------------- End -->
+
+
+        
+    
+    </div>
 		  
 		  
           <style>
@@ -364,146 +355,56 @@ function chkFormular () {
           </style>
         
         </div>
-        <div class="content" id="panel2">
+        <div class="content active"  id="panel2">
 <form name="Showcomments" action="http://giv-geosoft2d.uni-muenster.de" method="get">
 <fieldset>
 	<legend>Comments so far:</legend>
-
-
---- hier Kommentare einladen ---
 
 
 </fieldset>
 </form>
   
         </div>
-        <div class="content" id="panel3">
-		<html>
 
-<body>
-<form name="Rating" action="http://de.selfhtml.org/cgi-bin/formview.pl" method="post" onsubmit="return chkFormular2()">
-<fieldset>   
- <pre>
-    <legend>Rating:</legend>
+
+       <div class="content" id="panel3">
 	
-	1 <input type="radio" name="rating" value="1" checked="checked" />
-	2 <input type="radio" name="rating" value="2" />
-	3 <input type="radio" name="rating" value="3" />
-	4 <input type="radio" name="rating" value="4" />
-	5 <input type="radio" name="rating" value="5" />
-	<input type="submit" value="Submit" class="button round" id="butcom1">
+      <!--  <form name="Filter" action="http://de.selfhtml.org/cgi-bin/formview.pl" method="post" onsubmit="return chkFormular2()">
+          
+        -->
+            <h4>Filter</h4>
 
-</pre>
-</form>
-</html>
+            <p> Year </p>
+          <div class="range-slider radius" data-slider data-options="start:1960 ; end:2015;">
+			  <span class="range-slider-handle" role="slider" tabindex="0"></span>
+			  <span class="range-slider-active-segment"></span>
+			  <input type="hidden">
+		  </div>
+
+		   <p> Radius in km </p>
+		 <div class="range-slider" data-slider data-options="step: 10;">
+			  <span class="range-slider-handle" role="slider" tabindex="0"></span>
+			  <span class="range-slider-active-segment"></span>
+			  <input type="hidden">
+		</div> 
+			<div class="switch round tiny">
+			  <input id="exampleRadioSwitch3" type="radio" name="testGroup">
+			  <label for="exampleRadioSwitch3"></label>
+			</div>
+		</div>
+
+       
+       
+
         </div>
-        <div class="content" id="panel4">
-		<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
-<script type="text/javascript">
-function chkFormular3 () {
-  if (document.Userlogin.mail.value == "") {
-    alert("Please enter your email address!");
-    document.Userlogin.mail.focus();
-    return false;
-  }
-  if (document.Userlogin.mail.value.indexOf("@") == -1) {
-   alert("No email address!");
-   document.Userlogin.Mail.focus();
-   return false;
-  }
-  if(document.Userlogin.password.value == "") {
-   alert("Please enter your password!");
-   document.Userlogin.password.focus();
-   return false;
-  }
-}
-</script>
-</head>
+       
 
-<body>
-
-<!-- Start Login Formular--------------------------- -->
-<?php 
-
-// Only show form to unloggedin visitors
-if(IsLoggedIn() == true) {
-	echo "Already Loggedin.";
-} else {
-	echo file_get_contents("form_register.php");
-}
-?>
-
-<!--------------------- End -->
-
-</body>
-
-</html>
-        </div>
-
-        <div class="content" id="panel5">
-		<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
-<script type="text/javascript">
-function chkFormular4 () {
-  if (document.Userregist.nickname.value == "") {
-    alert("Please enter a Nickname!");
-    document.Userregist.mail.focus();
-    return false;
-  }
-  if (document.Userregist.mail.value == "") {
-    alert("Please enter your email address!");
-    document.Userregist.mail.focus();
-    return false;
-  }
-  if (document.Userregist.mail.value.indexOf(".") == -1) {
-   alert("No email address!");
-   document.Userregist.Mail.focus();
-   return false;
-}
-  if (document.Userregist.mail.value.indexOf(".") >= 3) {
-   alert("No email address!");
-   document.Userregist.Mail.focus();
-   return false;
-}
-  if (document.Userregist.mail.value.indexOf("@") == -1) {
-   alert("No email address!");
-   document.Userregist.Mail.focus();
-   return false;
-  }
-  if(document.Userregist.password.value == "") {
-   alert("Please enter your password!");
-   document.Userregist.password.focus();
-   return false;
-  }
-   if(document.Userregist.password2.value != document.Userregist.password.value) {
-   alert("Passwords are not equal!");
-   document.Userregist.password2.focus();
-   return false;
-  }
-}
-</script>
-</head>
-
-
-<body>
-
-<!-- Start Register Formular--------------------------- -->
-<?php 
-
-// Only show form to unloggedin visitors
-if(IsLoggedIn() == true) {
-	echo "Already registered.";
-} else {
-	echo file_get_contents("form_register.php");
-}
-?>
-
-<!--------------------- End -->
-
-</body>
+        
+        
+        
+        
+        <div class="content" id="panel_showcomment">
+	  <div id="showncomments"> </div>
         </div>
 
       </div>
@@ -549,18 +450,63 @@ if(IsLoggedIn() == true) {
 -->
 
   <!-- body content here -->
+<!--Joyride Foundation Marike-->
+
+
+<!-- At the bottom of your page but inside of the body tag -->
+<ol class="joyride-list" data-joyride>
+	<li data-id="firstStop" data-text="Next" data-options="tip_location: bottom; nub_position: relative; prev_button: false">
+	<h5> Welcome ! </h5>
+    <p>Hello and welcome on Geocomment. On Login you can login or just click on the Map to start comment.</p>
+  </li>
+<li data-id="secondStop" data-text="Next" data-options="tip_location: top; " data-prev-text="Prev">
+	 <h6>New comment</h6>
+    <p>Here you can leave a new comment. Choose a position for your geodata on map.</p>
+  </li>
+  <li data-id="thirdStop" data-class="custom so-awesome" data-text="Next" data-prev-text="Prev">
+    <h6>See comments</h6>
+    <p>See all comments sorted by time.</p>
+  </li>
+  <li data-id="stop4" data-button="Next" data-prev-text="Prev" data-options="tip_location:top;tip_animation:fade">
+    <h6>Filter</h6>
+    <p> Data can filter by time and location</p>
+  </li>
+  <li  data-button="Next"  data-prev-text="Prev" data-options="tip_location:top;tip_animation:fade">
+
+    <h6>More help</h6>
+    <p>If you are not sure how to use Geocomment, have a look on FAQ. </p>
+     <a href="FAQ.html" class="tiny round button">Help</a>
+     <br>
+     <br>
+  </li>
+  <li data-button="End" data-prev-text="Prev">
+    <h4>Have fun</h4>
+    <p></p>
+  </li>
+</ol>
+
 
 
 
   <script src="js/vendor/jquery.js"></script>
+  <script src="js/foundation/foundation.js"></script>
   <script src="js/foundation.min.js"></script>
   <script src="js/foundation/foundation.interchange.js"></script>
   <script src="js/foundation/foundation.offcanvas.js"></script>
+  <script src="js/foundation/foundation.joyride.js"></script>
+  <script src="js/foundation/foundation.slider.js"></script>
+  <script src="js/vendor/jquery.cookie.js"></script> <!-- Optional -->
   <script>
     $(document).foundation();
-    $("#swap").on("replace", function() {
-      $(document).foundation();
-    });
+    
+   
+      $(document).foundation().foundation('joyride', 'start');
+   
   </script>
+
+
+
+
+
 </body>
 </html>
