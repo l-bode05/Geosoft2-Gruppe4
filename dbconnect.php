@@ -3,7 +3,7 @@
 // Contains connection to database and is included in every file
 $servername = "localhost";
 $username = "root";
-$password = "dark knight rises zakbum";
+$password = "***";
 $dbname = "test";
 
 // DB Password salt
