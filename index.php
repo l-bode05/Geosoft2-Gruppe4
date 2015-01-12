@@ -547,6 +547,25 @@ if(IsLoggedIn() == true) {
   </div>
 </footer>
 -->
+	<div class="large-12 columns" id="footer">
+
+	<ul class="breadcrumbs">
+	  <li class="current"><a href="#">Home</a></li>
+	  <li><a href="Benutzerhilfe.html">Benutzerhilfe</a></li>
+	  <li><a href="Impressum.html">Impressum</a></li>
+	  <li><a href="Code.html">Code</a></li>
+	</ul>
+	</div>
+	
+	<style>
+	#footer{
+		position:fixed;
+		bottom:0px;
+		
+	}
+	</style>
+
+
 
   <!-- body content here -->
 
