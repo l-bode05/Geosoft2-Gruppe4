@@ -26,23 +26,12 @@
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
-
-
-
-
-<!--<style>
-  body { margin:0; padding:0; }
-  #map { position:absolute; top:0; bottom:0; width:100%; }
-</style> 
--->
-
-  <!-- If you are using the gem version, you need this only -->
-  <link rel="stylesheet" href="css/app.css">
-
-  <script src="js/vendor/modernizr.js"></script>
-
-    
-</head>
+    <link rel="stylesheet" href="css/mapstyle.css" />
+     <!-- If you are using the gem version, you need this only -->
+    <link rel="stylesheet" href="css/app.css">
+    <script src="js/vendor/modernizr.js"></script>
+  
+ </head>
 
 <body>
 
@@ -61,12 +50,7 @@
      <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
     <li class="toggle-topbar" id="menu-icon" ><a href='#'><span>Menu</span>
        <img src="menu.png" > </a>
-       <style type="text/css">
-          #menu-icon
-          {
-            position:right;
-          }
-       </style>
+       
     
          
     </li>
@@ -133,8 +117,8 @@
           <li><a href="#">Filter</a></li>
           <li><a href="#">New Comment</a></li>
           <li><a href="#">Advanced Search</a></li>
-           <li><a href="#">FAQ</a></li>
-           <li><a href="#">Impressum</a></li>
+          <li><a href="Help.html">Help</a></li>
+          <li><a href="impressum.html">Impressum</a></li>
 
         </ul>
       </li>
@@ -167,8 +151,8 @@
       
        
       <ul class="dropdown">
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Impressum</a></li>
+          <li><a href="Help.html">Help</a></li>
+          <li><a href="Impressum.html">Impressum</a></li>
        
         
 
@@ -191,43 +175,10 @@
 
 
 <div class="rows">
-<!--<style>
-#rows {
-width: 100%;
-margin-left: auto;
-margin-right: auto;
-margin-top: 0;
-margin-bottom: 0;
-max-width: 100%;
-
-}
-</style>
-<div id="swap" data-interchange="[../small-header.html, (only screen)], [../medium-header.html, (medium)]">
-</div> -->
-  
 
      
   <div id="map">
-    <style>
-
-     #map{
-    
-
-    width: 100%; 
-    height: 95%;
-    float: left;
-    position: absolute;
-    }
-    
-    @media screen and (min-width: 1025px) {
-      #map{
-      width:58%;
-      height:95%;
-
-          }
-    }
-     
-    </style>
+   
    
       <!--javascript for mapfunctions-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js "></script>
@@ -245,50 +196,13 @@ max-width: 100%;
         });
     </script>  
     
-    <script src="map.js">
-    </script>
+    <!--javascript for map function-->
+    <script src="map.js"></script>
+ 
 
-
-   
-  
-
-    
     }
-
-  <!--
-
-  <style>
  
-  #map {
-    width: 59% ; 
-    height: 93%;
-    float: left;
-    position: absolute;
-
-  }
-
-  </style>
-  -->
   
-<!--
-  <script type="text/javascript">
- 
-  var map = L.map('map').setView([51.96217, 7.62561],12);
- 
-  L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 35,
-      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
-    }).addTo(map);
-
-  
-  
-  
-  var popup = L.popup();
-  
-  
-
-  </script>
-  -->
   </div>
 
 
@@ -340,21 +254,9 @@ max-width: 100%;
     </div>
 		  
 		  
-          <style>
-            #butcom1 {
-
-               width: 50% ; 
-               left: 14%;
-               
-               background-color: blue;
-                
-                float: left;
-                position: left;
-
-            }
-          </style>
-        
-        </div>
+         
+       
+  </div>
         <div class="content active"  id="panel2">
 <form name="Showcomments" action="http://giv-geosoft2d.uni-muenster.de" method="get">
 <fieldset>
@@ -475,7 +377,7 @@ max-width: 100%;
 
     <h6>More help</h6>
     <p>If you are not sure how to use Geocomment, have a look on FAQ. </p>
-     <a href="FAQ.html" class="tiny round button">Help</a>
+     <a href="Help.html" class="tiny round button">Help</a>
      <br>
      <br>
   </li>
