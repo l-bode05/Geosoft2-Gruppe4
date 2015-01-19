@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<script type="text/javascript" src="jQuery-1.11.1.js"></script>
+<script language="JavaScript" type="text/javascript">
+function ajax_post(){
+  if (document.createcomment.title.value == "") {
+    alert("Please enter a title!");
+    document.createcomment.title.focus();
+    return false;
+  }
+  if(document.createcomment.url.value == "") {
+   alert("Please enter a Url!");
+   document.createcomment.url.focus();
+   return false;
+  }
+  if(document.createcomment.comment.value == "") {
+   alert("Please enter a comment!");
+   document.createcomment.url.focus();
+   return false;
+  }
+  if(document.createcomment.datum.value == "") {
+   alert("Please enter a datum!");
+   document.createcomment.url.focus();
+   return false;
+  }
+    // Create our XMLHttpRequest object
+    var hr = new XMLHttpRequest();
+    // Create some variables we need to send to our PHP file
+    var url = "createcommentPHP.php";
+    var title = document.getElementById("title").value;
+    var urllink = document.getElementById("url").value;
+    var comment = document.getElementById("comment").value;
+    var datum = document.getElementById("datum").value;	
+    hr.open("POST", url, true);
+    // Set content type header information for sending url encoded variables in the request
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    // Access the onreadystatechange event for the XMLHttpRequest object
+    hr.onreadystatechange = function() {
+   if(hr.readyState == 4 && hr.status == 200) {
+   var return_data = hr.responseText;
+document.getElementById("status").innerHTML = return_data;
+   }
+    }
+    // Send the data to PHP now... and wait for response to update the status div
+    hr.send(vars); // Actually execute the request
+    document.getElementById("status").innerHTML = "processing...";
+}
+</script>
+</head>
+<body>
+<form name="createcomment" >
+<fieldset>   
+ <pre>
+       <legend>Create Comment:</legend>
+
+	<br>	<label for="title">Title:</label>
+        <input type="text" Placeholder="Title" name="title" id="title" class="text" />
+        <label for="url">Url:</label>
+        <input type="text" Placeholder="Url" name="url" id="url" class="text" />
+        <label for="comment">Comment:</label>
+        <textarea id ="comment" name="comment" wrap="PHYSICAL" Placeholder="Comment" cols="30" rows="5"></textarea>
+        <label for="mapage">Datum:</label>
+        <input type="date" Placeholder="Datum" name="datum" id="datum" class="date" />
+        <input type="submit" value="Submit" class="submit" onClick="javascript:ajax_post();"/>
+		
+ </pre>
+</fieldset>
+</form> 
+<div id="status"></div>
+<script type="text/javascript" src="jQuery-1.11.1.js"></script>
+</body>
+
+</html>
