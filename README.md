@@ -17,7 +17,7 @@ Geocomment was developed by group D:
 * M. Meijer
 * T. Tasse
 
-For [testing](http://giv-geosoft2d.de/final), open the website ( access only via/inside WWU Münster network)
+For [testing](http://giv-geosoft2d.uni-muenster.de/final), open the website ( access only via/inside WWU Münster network)
 
 <hr>
 
