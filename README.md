@@ -42,6 +42,11 @@ For [testing](http://giv-geosoft2d.uni-muenster.de/final), open the website ( ac
 ###Install  (Ubuntu)
 
 ```
+sudo apt-get install php5 libapache2-mod-php5
+sudo apt-get install php5-mysql
+sudo apt-get install phpmyadmin
+sudo apt-get install mysql-server
+sudo ln -s /etc/phpmyadmin/apache2/conf.d/phpmyadmin.conf
 
 
 
