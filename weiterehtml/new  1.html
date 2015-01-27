@@ -1,0 +1,72 @@
+<html>
+<head>
+	<title>Zakbum</title>
+	<style type="text/css">
+		body { background-color:"white"; font-weight:bold; font-family:Arial; font-size:120%; }
+	</style>
+    <script type="text/javascript">
+    // the Geolocation API provides us with the visitor's location
+    navigator.geolocation.getCurrentPosition(GetLocation);
+    
+    function GetLocation(location) {
+      // after we have acquired the user's location, it is written into the HTML <input...> text boxes below
+      document.form.lat.value = location.coords.latitude;
+      document.form.lon.value = location.coords.longitude;
+    }
+     </script>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>	
+	
+	
+	<link rel="stylesheet2" href="css/foundation.css">
+	<link rel="stylesheet2" href="css/app.css">
+	<script src="js/vendor/modernizr.js"></script>
+
+
+</head>
+<body>
+	<h1>Zakbum</h1>
+	
+	<div id="map" style="width: 50%; height: 80%"></div>
+	<script type="text/javascript">
+	var map = L.map('map').setView([51.96217, 7.62561],16);
+	L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			maxZoom: 20,
+			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+		}).addTo(map);
+
+	L.marker([51.96298, 7.62575]).addTo(map).bindPopup("Münster").openPopup();
+	
+	
+	var popup = L.popup();
+	
+	function onMapClick(e) {
+			popup
+				.setLatLng(e.latlng)
+				.setContent('Hallo, möchtest du an dieser Stelle einen Kommentar einfügen?<br /> <a href="">Ja</a>')
+				.openOn(map);
+		}
+
+		map.on('click', onMapClick);
+	</script>
+	<br>
+	<div class="row">
+		<div class="columns.small-12">
+			<p class="panel callout">.small-12</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="columns small-12 medium-6">
+			<p class="panel callout">
+			.small-6
+		</div>
+		<div class="columns small-12 medium-6">
+			<p class="panel callout">
+			.small-6
+		</div>
+	</div>
+</body>
+
+
+</html>
