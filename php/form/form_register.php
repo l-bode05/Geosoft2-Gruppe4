@@ -28,12 +28,12 @@
 			// Input is valid
 			if(valid==true) {
 				// Submit Post Request
-				$.post('ret_register.php', $(this).serialize(), function(data){
+				$.post('php/return/ret_register.php', $(this).serialize(), function(data){
 
 					// Analyze the respons
 					if(data ==1) { // Success
 						$("#reg_form").hide();
-						$('#reg_newmsg').html("Registered ang loggedin. have fun! Wait for site refreshing in 3 seconds..");
+						$('#reg_newmsg').html("Registered ang loggedin. Site refreshing in 3 seconds..");
 						setTimeout(function () { location.reload(true); }, 3000);
 					} else { // Error
 						if(data == -1) {
@@ -41,7 +41,6 @@
 						} else if(data == -2) {
 							$('#reg_status').html("An account with the mail adress '"+$('#reg_mail').val()+"' alreadys exists. Already registered? Then login." );
 						}
-						
 					}
 
 				}).fail(function() { // Posting Error

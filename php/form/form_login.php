@@ -22,7 +22,7 @@
             // Input is valid
             if(valid==true) {
                 // Submit Post Request
-                $.post('ret_login.php', $(this).serialize(), function(data){
+                $.post('php/return/ret_login.php', $(this).serialize(), function(data){
 
                         // Analyze the respons
                         if(data ==1) { // Success
