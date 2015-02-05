@@ -1,4 +1,101 @@
 body {
-    font-size: 10px;
+    font-size: 14px;
     }
+
+
+
+#top-bar{
+	background: #000000 !important;
+}
+
+/*
+*images style: zakbumlogo;
+*/
+#zakbum{
+	position: relative;
+	height: 44px;
+	width: 80px;
+	left: 3px;
+	;
+	
+	}
+
+/*
+*images style: info;
+*/
+
+#infoicon{
+	position: relative;
+	height: 40px;
+	width: 40px;
+	right: 5px;
+	border: 2px;
+	top: 90%;
+	background: #000000;
+	}
+ 
+
+#icon-help{
+    position: absolute;
+	height: 40px;
+	width: 40px;
+	left: 3px;
+	border: 2%;
+	z-index: 444;
+	bottom :6%;
+ }
+
+ /* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+/* Styles */
+#icon-help{
+    position: absolute;
+	height: 25px;
+	width: 25px;
+	left: 290px;
+	border: 2%;
+	z-index: 444;
+	bottom :8%;
+ }
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+/* Styles */
+}
+
+/* Large screens ----------- */
+@media only screen and (min-width : 1824px) {
+
+/* Styles */
+#icon-help{
+    position: absolute;
+	height: 40px;
+	width: 40px;
+	left: 3px;
+	border: 2%;
+	z-index: 444;
+	bottom :4%;
+ }
+
+}
+	
+
+
+/*
+*images style: info;
+*/
+  
+
+
+
+  }
+
+  #filter_form{
+  	color:#4d4d4d;
+  }
+  #filtercom{
+
+  	color: #222222;
+  }
 
