@@ -405,7 +405,9 @@
 
 
   
-<!--Joyride Foundation-->
+<!--Joyride Foundation only for screens-->
+
+<strong hide-for-small>
 
 
 <!-- At the bottom of your page but inside of the body tag -->
@@ -416,30 +418,26 @@ if($_COOKIE["welcomehelp"] < 1) {
     echo '
     <ol class="joyride-list" data-joyride id="geo">
             <li data-id="firstStop" data-text="Next" data-options="tip_location: bottom; nub_position: relative; prev_button: false">
-             <h5> Welcome to Geocomment ! </h5>
-            <p>This is a website to comment on geodata. You can login or sign in here.</p>
+             <h5> Welcome ! </h5>
+            <p>Hello and welcome on Geocomment. On Login you can login or just click on the Map to start comment.</p>
       </li>
     <li data-id="secondStop" data-text="Next" data-options="tip_location: top; " data-prev-text="Prev">
               <h6>New comment</h6>
-        <p>Leave a new comment. Choose a position for your geodata and just click on a map.</p>
+        <p>Here you can leave a new comment. Choose a position for your geodata on map.</p>
       </li>
       <li data-id="thirdStop" data-class="custom so-awesome" data-text="Next" data-prev-text="Prev">
-        <h6>All comments</h6>
+        <h6>See comments</h6>
         <p>See all comments sorted by time.</p>
       </li>
       <li data-id="stop4" data-button="Next" data-prev-text="Prev" data-options="tip_location:top;tip_animation:fade">
-        <h6>Search</h6>
-        <p> Data can filter by time and location or rated geodata</p>
-      </li>
-      <li data-id="showncomments" data-button="Next" data-prev-text="Prev" data-options="tip_location:top;tip_animation:fade">
-        <h6>Show Comments</h6>
-        <p> Here are all comments</p>
+        <h6>Filter</h6>
+        <p> Data can filter by time and location</p>
       </li>
       <li  data-button="Next"  data-prev-text="Prev" data-options="tip_location:top;tip_animation:fade">
 
         <h6>More help</h6>
-        <p>If you are not sure how to use Geocomment, have a look on our Help. </p>
-         <a href="help.html" class="tiny round button">Help</a>
+        <p>If you are not sure how to use Geocomment, have a look on FAQ. </p>
+         <a href="Help.html" class="tiny round button">Help</a>
          <br>
          <br>
       </li>
@@ -452,7 +450,7 @@ if($_COOKIE["welcomehelp"] < 1) {
         
 } 
 ?>
-
+</strong>
 
     <!-- Scripts to start foundation stuff -->
   

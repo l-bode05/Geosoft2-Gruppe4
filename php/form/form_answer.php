@@ -77,11 +77,7 @@
            <?php 
                 if(IsLoggedIn()==false) {
                  echo "
-                  <div id='userdiv'>
-                    <label for='ans_username'><b>Username:</b></label>
-                    <input type='text' Placeholder='Username (Optional)' name='ans_username' id='ans_username' class='text' />
-                    <div id='ans_username_status' style='color:red'> </div>
-                  </div>  ";
+                    ";
                 } 
             ?>
             <input type="hidden" name="answer_to" id="answer_to" class="text" value="anid" />

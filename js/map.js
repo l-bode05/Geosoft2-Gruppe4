@@ -377,7 +377,7 @@ function ShowGeodata(geo_data){
 
  //http://geoserver.itc.nl/cgi-bin/mapserv.exe?map=D:/Inetpub/mapserver
  //pg_config.map&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&SRS=EPSG:28992&BBOX=248500,464700,263900,478600&FORMAT=image/png&WIDTH=616&HEIGHT=556&LAYERS=enscadparcels
- alert(geo_data);
+ //alert(geo_data);
  var type = decodeURI(geo_data);
 
  /*
@@ -426,10 +426,10 @@ var jsonp;
       }
      }*/
     
-  
+  //check if url is a wms
  if(type.indexOf("WMS") !=-1|| type.indexOf("wms") !=-1){
-   alert("WMS");
-// Add each wms layer using L.tileLayer.wms
+   //alert("WMS");
+// ajax get 
 
   $.ajax({
       type: "GET",
@@ -449,7 +449,7 @@ var jsonp;
 
     });
 
-    
+    //add wms to map using L.tileLayer.wms
  	var layer = L.tileLayer.wms(url, {
        format: 'img/png',
        transparent: true,
@@ -464,8 +464,9 @@ var jsonp;
 }
 
  else 
+  //check if url is KML
   if(type.indexOf("KML")!=-1 || type.indexOf("kml")!=-1){
-  	alert("KML");
+  	//alert("KML");
 
 //http://harrywood.co.uk/maps/examples/leaflet/mapperz-kml-example.kml
  //http://web-apprentice-demo.craic.com/assets/maps/fremont.kml
@@ -493,7 +494,7 @@ var jsonp;
     var n = str.lastIndexOf( "/");
     var m = str.lastIndexOf( ".kml");
     var kmls = str.substring(n+1,(m+4));
-    alert(kmls);
+   // alert(kmls);
 
  var runLayer = omnivore.kml(kmls)
      .on('ready', function() {
@@ -503,14 +504,15 @@ var jsonp;
   }
 
   else 
+
     if(type.indexOf("GML")!=-1 || type.indexOf("gml")!=-1){
-      alert("GML");
+      //alert("GML");
 
     
 
     }
     else
-alert("type not defined");
+console.log("type not defined");
 
 
   

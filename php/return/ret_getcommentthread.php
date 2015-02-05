@@ -53,9 +53,9 @@ for($i=0; $i < count($res); $i++) {
         }
            
         // Ratebar
-        if(CanRateGeodata($res[$i]["id"])==true) {
+        if(CanRateGeodata($res[$i]["geodata_id"])==true) {
              $html=$html.'
-                  <br><br><br>Your rating:
+                  <br><br><br>
                   <input type="hidden" min="0" max="5" value="'.$_COOKIE[$res[$i]["id"]] .'" step="0.5" id="ratinglist">
                   <div class="rateit" data-rateit-backingfld="#ratinglist" id="rateit-range"></div>
                  
