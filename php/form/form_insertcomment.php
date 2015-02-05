@@ -25,8 +25,8 @@
                 }
             }
 
-            if($('#ins_title').val().length>12 || $('#ins_title').val().length<4) {
-                $('#ins_title_status').html("Please insert a title between four and twelve chars.");
+            if($('#ins_title').val().length>30 || $('#ins_title').val().length<4) {
+                $('#ins_title_status').html("Please insert a title between four and thirty chars.");
                 valid=false;
             }
 
