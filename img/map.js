@@ -34,7 +34,7 @@ var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 
 
-      //layer control 
+      //layer control by marike
 L.control.layers({
    'Aerial': aerial,
    'mapboxTiles': mapboxTiles,
@@ -75,13 +75,7 @@ var drawControl = new L.Control.Draw({
     marker: false
   }
 }).addTo(map);
-
-
-/* showPolygonAreaEdited
- * 
- * Event after edited a polygon
- * 
- */
+map.on('draw:created', showPolygonArea);
 map.on('draw:edited', showPolygonAreaEdited);
 function showPolygonAreaEdited(e) {
   e.layers.eachLayer(function(layer) {
@@ -89,39 +83,12 @@ function showPolygonAreaEdited(e) {
   });
 }
 
-/* showPolygonArea
- * 
- * Event after created a polygon
- * 
- */
-map.on('draw:created', showPolygonArea);
-var edit_layer;
 function showPolygonArea(e) {
-  if(spaceexp_layer!=null) map.removeLayer(spaceexp_layer);
   featureGroup.clearLayers(); 
   featureGroup.addLayer(e.layer);
-  edit_layer=e.layer;
   var shape = e.layer.toGeoJSON();
   var shape_for_db = JSON.stringify(shape);
   document.getElementById("ins_spatialexp").value=shape_for_db;
-  document.getElementById("spatialexp_status").value="Set. Manually created.";
-   
-  // Set for filter
-  var selected = new Array();
-  selected=shape_for_db.split("[[[");
- 
-  if(selected.length>0) {
-	shape_for_db=shape_for_db.split("[[[")[1];
-	var points1=shape_for_db.split("]")[0];
-	
-	selected=shape_for_db.split("[");
-	
-	if(selected.length>1) {
-		  var points2=shape_for_db.split("[")[2].split("]")[0];
-		  document.getElementById("bbox").value=points1.split(",")[1]+" "+points1.split(",")[0]+" "+points2.split(",")[1]+" "+points2.split(",")[0];
-	}
-  }
- 
 }
 
 /* ShowSpaceExp
@@ -132,14 +99,10 @@ function showPolygonArea(e) {
 var spaceexp_layer;
 function ShowSpaceExp(datas) {
     if(spaceexp_layer!=null) map.removeLayer(spaceexp_layer);
-	if(edit_layer!=null) map.removeLayer(edit_layer);
-	featureGroup.clearLayers(); 
-	
     if(datas!=null && datas!="") {
         spaceexp_layer = new L.geoJson();
         spaceexp_layer.addTo(map);
         spaceexp_layer.addData(jQuery.parseJSON(datas));
-		map.fitBounds(spaceexp_layer.getBounds());
     }
 
 }
@@ -202,9 +165,11 @@ var markers = []; // Array with all markers
 function CreateMarker(x, y, htmltxt, commentid, geo_data) {
      var geo_data='"' + geo_data + '"';
      var marker = L.marker();
-     var popup = L.popup();   
+     var popup = L.popup();
+     
+    
      var markerHtml = htmltxt+" <a href='#' onclick='ShowComment("+commentid+")'> Show more</a>" 
-     + " <br> <a href='#' onclick='ShowGeodata(" +geo_data+")'>Show Geodata " +geo_data+ "</a>";
+     + " <br> <a href='#' onclick='ShowGeodata(" + geo_data+")'>Show Geodata " +geo_data+ "</a>";
 
   /*   var markers = []; // Array with all markers
 function CreateMarker(x, y, htmltxt, commentid, geo_data) {
@@ -330,208 +295,34 @@ function SetFilterUserposition() {
 }
 
 
-/*//get xml from url
- function loadXMLDoc(geo_data){
-    if (window.XMLHttpRequest) {
-        xhttp = new XMLHttpRequest();
-    }
-    else {
-        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    xhttp.open("GET", geo_data, false);
-    xhttp.send("");
-    return xhttp.responseXML;
-}
-
-//display xml 
-function displayResult(){
-  // a URL can replace a local xml file, but the script has to be on the same domain
-  // due to security
-    //"http://myserver/cgi-bin/mapserv.exe?map=/ms4w/apps/mymap.map&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetCapabilities"
-    xml = loadXMLDoc("GetCapabilities.xml");
-    
-    xsl = loadXMLDoc("GetCapabilities.xsl");
-    // code for IE
-    if (window.ActiveXObject) {
-        ex = xml.transformNode(xsl);
-        document.getElementById("GetCapabilitiesResults").innerHTML = ex;
-    }
-    // code for Mozilla, Firefox, Opera, etc.
-    else 
-        if (document.implementation && document.implementation.createDocument) {
-            xsltProcessor = new XSLTProcessor();
-            xsltProcessor.importStylesheet(xsl);
-            resultDocument = xsltProcessor.transformToFragment(xml, document);
-            document.getElementById("GetCapabilitiesResults").appendChild(resultDocument);
-        
-               alert(resultDocument);
-        }
-      }*/
-
-       
-
-
 function ShowGeodata(geo_data){
   //http://nowcoast.noaa.gov/wms/com.esri.wms.Esrimap/obs
  //var geo_data='"' + geo_data + '"';
-
- //http://geoserver.itc.nl/cgi-bin/mapserv.exe?map=D:/Inetpub/mapserver
- //pg_config.map&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&SRS=EPSG:28992&BBOX=248500,464700,263900,478600&FORMAT=image/png&WIDTH=616&HEIGHT=556&LAYERS=enscadparcels
- alert(geo_data);
- var type = decodeURI(geo_data);
-
- /*
-        var xmlhttp; 
-        var xmlDoc;
-        xmlhttp=new XMLHttpRequest();
-        xmlhttp.open("GET", geo_data, false);
-        xmlhttp.send();
-        xmlDoc=xmlhttp.responseXML;
-
-         alert("xml "+ xmlDoc);*/
-     
-var url = geo_data;
-var xml ;
-var jsonp;
-  
+ alert("hallo" + geo_data);
 
 
 
-
-
-
- /*   function getLayer(xml) {
-  var layers_from_xml = xml.getElementsByTagName("Layer")[0];
-  if (layers_from_xml) {
-    var layers_from_xmlNodes = layers_from_xml.childNodes;
-    if (layers_from_xmlNodes) {
-      for (var i = 0; i < layers_from_xmlNodes.length; i++) {
-        var name = layers_from_xmlNodes[i].getAttribute("Name");
-        //var colour = fruitsNodes[i].getAttribute("colour");
-        alert("Layer " + layers_from_xmlNodes + " Layer " + layers_from_xml);
-      }
-    }
-  }
-}*/
-     
-
-    
-     
-    /* if (layers_aus_xml){
-      var layers_aus_xmlNodes = layers_aus_xml.childNodes;
-      if (fruitsNodes){
-        for (var i=0; i < layers_aus_xmlNodes.lenght; i++) {
-          var name = layers_aus_xmlNodes[i].getA
-        }
-      }
-     }*/
-    
-  
- if(type.indexOf("WMS") !=-1|| type.indexOf("wms") !=-1){
-   alert("WMS");
+ 
 // Add each wms layer using L.tileLayer.wms
+var layer = L.tileLayer.wms( geo_data , {
+    format: 'img/png',
+    transparent: true,
+    layer:16 
+}).addTo(map).bringToFront();
 
-  $.ajax({
-      type: "GET",
-      url: url + "?REQUEST=GetCapabilities&VERSION=1.0.1&SERVICE=WMS",
-      dataType: "xml",
-      success: function(xml){
-      console.log(xml);
-      var jsonp = $.xml2json(xml);
-      console.log(jsonp);
-      return jsonp;
-      return xml;
 
-    }
 
-      
-    
+// var runLayer = omnivore.kml()
+//     .on('ready', function() {
+//         map.fitBounds(runLayer.getBounds());
+//     })
+//     .addTo(map).bringToFront;
+  
+}
 
-    });
 
-    
- 	var layer = L.tileLayer.wms(url, {
-       format: 'img/png',
-       transparent: true,
-       layers: 16
-    }).addTo(map).bringToFront();
 
+ 
    
 
-    
 
-
-}
-
- else 
-  if(type.indexOf("KML")!=-1 || type.indexOf("kml")!=-1){
-  	alert("KML");
-
-//http://harrywood.co.uk/maps/examples/leaflet/mapperz-kml-example.kml
- //http://web-apprentice-demo.craic.com/assets/maps/fremont.kml
-
-  var url = geo_data;
-  $.ajax({
-      type: "GET",
-      url: url,
-      dataType: "xml",
-      success: function(xml){
-      console.log(xml);
-      var jsonp = $.xml2json(xml);
-      console.log(jsonp);
-      return jsonp;
-      return xml;
-
-    }
-
-      
-    
-
-    });
-
-    var str = type;
-    var n = str.lastIndexOf( "/");
-    var m = str.lastIndexOf( ".kml");
-    var kmls = str.substring(n+1,(m+4));
-    alert(kmls);
-
- var runLayer = omnivore.kml(kmls)
-     .on('ready', function() {
-         map.fitBounds(runLayer);
-     })
-     .addTo(map).bringToFront;
-  }
-
-  else 
-    if(type.indexOf("GML")!=-1 || type.indexOf("gml")!=-1){
-      alert("GML");
-
-    
-
-    }
-    else
-alert("type not defined");
-
-
-  
-}
-
-
-
- 
- 
-
-
-  /* $.ajax({
-      type: "GET",
-      url: geo_data ,
-      dataType: 'WMS',
-      success: function (response) {
-
-        alert(response);
-
-        geojsonLayer = L.geoJson(response, {
-            transparent:true,
-        }).addTo(map);
-}
-})*/
